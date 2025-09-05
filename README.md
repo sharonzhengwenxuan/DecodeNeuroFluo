@@ -1,5 +1,4 @@
-# DecodeNeuroFluo
-
+# NeuroFluorescenceAnalysis
 
 > **Decoding fluorescence-based neuromodulatory transmission properties** — a MATLAB toolkit for image processing and spatiotemporal analysis of neurotransmission.
 
@@ -7,6 +6,7 @@
 
 <p align="center">
   <a href="#"><img alt="MATLAB" src="https://img.shields.io/badge/MATLAB-R2021a%2B-blue"></a>
+  <a href="#"><img alt="License" src="https://img.shields.io/badge/license-MIT-green"></a>
   <a href="#"><img alt="Platform" src="https://img.shields.io/badge/platform-Windows%20%7C%20macOS%20%7C%20Linux-lightgrey"></a>
 </p>
 
@@ -76,6 +76,13 @@ Additional MATLAB Toolboxes required:
 - Each image should be **sequentially named**: `1_1.tif`, `1_2.tif`, …
 
 **Example directory**
+```
+data/
+└─ 1/
+   ├─ 1_1.tif
+   ├─ 1_2.tif
+   └─ ...
+```
 
 ### Output
 
@@ -125,4 +132,71 @@ Pipeline: **alignment → deconvolution → baseline adjustment → denoise → 
   startFrame = 401;
   endFrame   = 1001;
   respStart  = 501; % default response onset
+  ```
 
+---
+
+### A6_2 — Background Adjustment
+**Script:** `A6/A6_2F6.m`
+
+Presents **ΔF/F** after **background adjustment**. By default, background is the **minimum value before response**.
+
+**Manual options**
+- **Line 18**: set the background value manually if background is not uniform.
+
+---
+
+### A6_3 — Overlay for Peak Localization
+**Script:** `A6/A6_3Overlay.m`
+
+Overlays a chosen **ΔF/F** color image onto a **denoised cell image** for **peak location identification**.
+
+**Manual options**
+- Change **slice number** at the beginning of the script.
+- **Line 15**: adjust the `bw` range to overlay large responses.
+
+---
+
+### `jerky` — 3D Presentation
+**Function:** `jerky`
+
+Generates **3D** visualization of responses. Manually export PNGs from the MATLAB figure.
+
+---
+
+### A6_4 — Peak Identification (DBSCAN)
+**Script:** `A6/A6_4PeakIdentification.m`
+
+Identifies clusters of responses using **DBSCAN**. Defaults set for individual peaks with **decay constant ~1**.
+
+**Manual option**
+- In `STAPeak.m`, adjust **`epsilon`** and **`minpts`** (line numbers may vary by version) for different cluster sizes.
+
+---
+
+### A6_5 — Peak Quantification vs Distance
+**Script:** `A6/A6_5Pumpkintest.m`
+
+Plots **response amplitude** vs **distance to the maximum-response point** for a user-selected peak.
+- Requires **circling the region of interest** interactively.
+- Output response is background-adjusted (similar to `A6_2F6.m`).
+
+---
+
+## Notes & Tips
+- Keep raw and processed data separate (`data/` vs `processed/`) to avoid accidental overwrites.
+- Version-control your **manual parameters** (noise level, `epsilon`, `minpts`, frame ranges) by committing small config changes.
+- Store exported figures in a `figures/` or `reports/` folder for reproducibility.
+
+---
+
+## Citing
+If this toolkit contributes to your work, please cite the repository (replace with your details):
+```
+@software{neurofluorescenceanalysis,
+  title   = {NeuroFluorescenceAnalysis: Fluorescence-based decoding of neuromodulatory transmission},
+  author  = {Your Name},
+  year    = {2025},
+  url     = {https://github.com/<username>/<repo>}
+}
+```
