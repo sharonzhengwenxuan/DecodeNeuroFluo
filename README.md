@@ -1,4 +1,4 @@
-# NeuroFluorescenceAnalysis
+# DecodeNeuroFluo
 
 > **Decoding fluorescence-based neuromodulatory transmission properties** — a MATLAB toolkit for image processing and spatiotemporal analysis of neurotransmission.
 
