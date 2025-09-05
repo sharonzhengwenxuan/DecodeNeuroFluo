@@ -191,12 +191,4 @@ Plots **response amplitude** vs **distance to the maximum-response point** for a
 ---
 
 ## Citing
-If this toolkit contributes to your work, please cite the repository (replace with your details):
-```
-@software{neurofluorescenceanalysis,
-  title   = {NeuroFluorescenceAnalysis: Fluorescence-based decoding of neuromodulatory transmission},
-  author  = {Your Name},
-  year    = {2025},
-  url     = {https://github.com/<username>/<repo>}
-}
-```
+If this toolkit contributes to your work, please cite the publication
