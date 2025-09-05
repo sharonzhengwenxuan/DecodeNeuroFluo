@@ -1,73 +1,81 @@
 # DecodeNeuroFluo
 Decoding fluorescence-based neuromodulatory transmission properties for quantitative analysis of spatial precision and release heterogeneity
 Features and methods introduction
-●	Image processing
-○	Alignment
-○	Deconvolution
-○	Baseline adjustment
-○	Denoise
-○	Background adjustment
-○	ΔF/F presentation
-●	Spatialtemporal analysis
-○	Peak location identification
-○	Peak extraction
-○	Peak maximum response analysis
-○	Peak exponential decay analysis
-Dependencies
-The following JAR File has to be added to the java folder of Matlab 
-●	DeconvolutionLab_2 
-Additional Matlab toolboxes are also required
-●	Curve Fitting Toolbox
-●	Statistics and Machine Learning Toolbox
-Input and output data
-Input 
-●	The default setting for input is in “.tif” format
-●	The images of one cell should be in the same folder number by a number (eg. 1), and each image should be named in sequence (eg. 1_1, 1_2,...)
-Output
-●	Folders
-○	_edited_1: aligned image from input
-○	_edited_2: deconvolved from _edited_1
-○	_edited_3: baseline adjusted from _edited_2
-○	_edited_4: denoised from _edited_3
-○	_edited_5:  ΔF/F calculated from _edited_4
-○	_edited_6;  background adjusted ΔF/F calculated from _edited_5 
-●	Images
-○	Overlaid ΔF/F color image on cell image:  currently saved in A6 folder as “xx_xxxbmp_transparant.png”
-○	3D image: manually save to PNG from matlab image after running jerky
-○	Peak extraction: manually save to PNG from matlab image after running jerky
-●	Peak quantification
-○	The data of response against distance to the maximum response is currently saved as jacktotal, which is background adjusted. 
-Usage
-●	Run A0_TestRun.m in the A0 folder
-○	This code will perform simple calculation of ΔF/F and present results in color images
-○	Proceed only  if there are noticeable response without significant movements and noises
-○	Manual options
-■	The default setting for the start and end of the images are 401 and 1001, and they can be changed at the beginning of A0_TestRun.m
-●	Run A6_1main.m in the A6 folder
-○	This code will perform alignment, deconvolution, baseline adjustment, denoise, and present ΔF/F in color images without background adjustment
-○	Manual options
-■	In STA5Calc.m line 40, change the noise level according to the setup and image quality to achieve cleaner images that show individual peaks
-■	The default setting for the start and end of the images are 401 and 1001, and they can be changed at the beginning of A6_1main.m
-■	The default setting for the response starts at 501
-●	Run A6_2F6.m
-○	This code will present ΔF/F in color images after background adjustment
-○	The background level is uniformly assumed to be the minimum value of the image before the response
-○	Manual options
-■	In line 18, the background value can be manually changed if the background is not uniform
-●	Run A6_3Overlay.m
-○	This code will overlay the one ΔF/F color image of choice on one denoised cell image for peak location identification
-○	Manual options
-■	Slice number can be changed at the beginning
-■	In line 15, the range of bw can be changed to overlay large response 
-●	Run the function jerky
-○	This code will present the 3D image
-●	Run A6_4PeakIdentification.m
-○	This code will identify clusters of response using DBSCAN algorithm 
-○	The default epsilon and minpts were set to accommodate for individual peaks with a decay constant around 1
-○	Manual option
-■	In STAPeak.m, in line xx and xx, epsilon and minpts can be adjusted for clusters of different size
-●	Run A6_5Pumpkintest.m
-○	This code will plot the response against the distance to the maximum response point of a peak of selection
-○	Input requires circling the region of interest
-○	The output response will be adjusted by eliminating the background (similar in A6_2F6)
-<img width="468" height="637" alt="image" src="https://github.com/user-attachments/assets/4868e643-048f-472a-862d-671b8c44d17e" />
+# NeuroFluorescenceAnalysis
+
+> **Decoding fluorescence-based neuromodulatory transmission properties** — a MATLAB toolkit for image processing and spatiotemporal analysis of neurotransmission.
+
+![Workflow Overview](assets/workflow.png)
+
+<p align="center">
+  <a href="#"><img alt="MATLAB" src="https://img.shields.io/badge/MATLAB-R2021a%2B-blue"></a>
+  <a href="#"><img alt="License" src="https://img.shields.io/badge/license-MIT-green"></a>
+  <a href="#"><img alt="Platform" src="https://img.shields.io/badge/platform-Windows%20%7C%20macOS%20%7C%20Linux-lightgrey"></a>
+</p>
+
+---
+
+## Table of Contents
+- [Features & Methods](#features--methods)
+  - [Image Processing](#image-processing)
+  - [Spatiotemporal Analysis](#spatiotemporal-analysis)
+- [Dependencies](#dependencies)
+- [Input & Output Data](#input--output-data)
+- [Usage](#usage)
+  - [A0 — Quick ΔF/F Test](#a0--quick-Δff-test)
+  - [A6_1 — Full Preprocessing (no background adj.)](#a6_1--full-preprocessing-no-background-adj)
+  - [A6_2 — Background Adjustment](#a6_2--background-adjustment)
+  - [A6_3 — Overlay for Peak Localization](#a6_3--overlay-for-peak-localization)
+  - [jerky — 3D Presentation](#jerky--3d-presentation)
+  - [A6_4 — Peak Identification (DBSCAN)](#a6_4--peak-identification-dbscan)
+  - [A6_5 — Peak Quantification vs Distance](#a6_5--peak-quantification-vs-distance)
+- [Notes & Tips](#notes--tips)
+- [Citing](#citing)
+
+---
+
+## Features & Methods
+
+### Image Processing
+- **Alignment**
+- **Deconvolution**
+- **Baseline adjustment**
+- **Denoise**
+- **Background adjustment**
+- **ΔF/F presentation**
+
+### Spatiotemporal Analysis
+- **Peak location identification**
+- **Peak extraction**
+- **Peak maximum response analysis**
+- **Peak exponential decay analysis**
+
+---
+
+## Dependencies
+
+Add the following **JAR** to MATLAB's Java path (e.g., place in `<MATLABROOT>/java/` or add via `javaaddpath` at startup):
+
+- **DeconvolutionLab_2**
+
+Additional MATLAB Toolboxes required:
+
+- **Curve Fitting Toolbox**
+- **Statistics and Machine Learning Toolbox**
+
+> Tip: verify availability in MATLAB with:
+>
+> ```matlab
+> ver('curve_fitting'), ver('statistics_toolbox')
+> ```
+
+---
+
+## Input & Output Data
+
+### Input
+- Default image format: **`.tif`**
+- Images for one cell should reside in the **same folder** named by a number (e.g., `1/`).
+- Each image should be **sequentially named**: `1_1.tif`, `1_2.tif`, …
+
+**Example directory**
