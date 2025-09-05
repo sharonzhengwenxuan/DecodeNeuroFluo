@@ -2,7 +2,7 @@
 
 > **Decoding fluorescence-based neuromodulatory transmission properties** — a MATLAB toolkit for image processing and spatiotemporal analysis of neurotransmission.
 
-![Workflow Overview](assets/workflow.png)
+![Workflow Overview](workflow.png)
 
 <p align="center">
   <a href="#"><img alt="MATLAB" src="https://img.shields.io/badge/MATLAB-R2021a%2B-blue"></a>
