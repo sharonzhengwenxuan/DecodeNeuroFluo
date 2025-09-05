@@ -76,3 +76,53 @@ Additional MATLAB Toolboxes required:
 - Each image should be **sequentially named**: `1_1.tif`, `1_2.tif`, …
 
 **Example directory**
+
+### Output
+
+#### Folders
+- `_edited_1/` — aligned images from input  
+- `_edited_2/` — deconvolved images from `_edited_1`  
+- `_edited_3/` — baseline-adjusted images from `_edited_2`  
+- `_edited_4/` — denoised images from `_edited_3`  
+- `_edited_5/` — **ΔF/F** calculated from `_edited_4`  
+- `_edited_6/` — background-adjusted **ΔF/F** calculated from `_edited_5`  
+
+#### Images
+- **Overlaid ΔF/F color image on cell image**: saved in `A6/` as `xx_xxxbmp_transparant.png`
+- **3D image**: manually export to **PNG** from MATLAB figure after running `jerky`
+- **Peak extraction**: manually export to **PNG** from MATLAB figure after running `jerky`
+
+#### Peak Quantification
+- Response vs. distance-to-maximum-response data is saved as **`jacktotal`** (background-adjusted).
+
+---
+
+## Usage
+
+> **Important:** Default frame indices assume a recording long enough to cover `[401, 1001]`. Adjust to your dataset as needed.
+
+### A0 — Quick ΔF/F Test
+**Script:** `A0/A0_TestRun.m`
+
+Performs a simple **ΔF/F** calculation and presents results as color images.
+
+Use this to quickly check if responses are visible **without significant movement or noise**.
+
+**Manual options**
+- Start & end frames (defaults): `startFrame = 401; endFrame = 1001;` (edit at the top of `A0_TestRun.m`).
+
+---
+
+### A6_1 — Full Preprocessing (no background adj.)
+**Script:** `A6/A6_1main.m`
+
+Pipeline: **alignment → deconvolution → baseline adjustment → denoise → ΔF/F (color)**
+
+**Manual options**
+- In `STA5Calc.m` **line 40**, set noise level according to setup/image quality to resolve **individual peaks**.
+- Start & end frames (defaults) at the top of `A6_1main.m`:
+  ```matlab
+  startFrame = 401;
+  endFrame   = 1001;
+  respStart  = 501; % default response onset
+
