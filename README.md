@@ -11,6 +11,7 @@
 </p>
 
 ---
+![Workflow Overview](wworkflow.png)
 
 ## Table of Contents
 - [Features & Methods](#features--methods)
