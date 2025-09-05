@@ -6,7 +6,7 @@
 
 <p align="center">
   <a href="#"><img alt="MATLAB" src="https://img.shields.io/badge/MATLAB-R2021a%2B-blue"></a>
-  <a href="#"><img alt="License" src="https://img.shields.io/badge/license-MIT-green"></a>
+  <a href="#"><img alt="License" src="https://img.shields.io/badge/license-UVA-green"></a>
   <a href="#"><img alt="Platform" src="https://img.shields.io/badge/platform-Windows%20%7C%20macOS%20%7C%20Linux-lightgrey"></a>
 </p>
 
